@@ -1,0 +1,42 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+    content: [
+        "./index.html",
+        "./src/**/*.{js,ts,jsx,tsx}",
+    ],
+    theme: {
+        extend: {
+            fontFamily: {
+                sans: ['Inter', 'sans-serif'],
+                display: ['Space Grotesk', 'sans-serif'],
+            },
+            colors: {
+                background: '#050505',
+                surface: '#121212',
+                primary: '#3B82F6',
+                text: '#FAFAFA',
+                muted: '#A1A1AA',
+            },
+            animation: {
+                'fade-in': 'fadeIn 0.5s ease-out',
+                'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+                'reveal': 'reveal 1.5s cubic-bezier(0.77, 0, 0.175, 1)',
+            },
+            keyframes: {
+                fadeIn: {
+                    '0%': { opacity: '0' },
+                    '100%': { opacity: '1' },
+                },
+                slideUp: {
+                    '0%': { transform: 'translateY(20px)', opacity: '0' },
+                    '100%': { transform: 'translateY(0)', opacity: '1' },
+                },
+                reveal: {
+                    '0%': { transform: 'translateY(100%)' },
+                    '100%': { transform: 'translateY(0)' },
+                }
+            }
+        },
+    },
+    plugins: [],
+}

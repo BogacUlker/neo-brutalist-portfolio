@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALEX // VIDEO EDITOR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'acid-green': '#ccff00',
+                        'hot-pink': '#ff00ff',
+                        'electric-blue': '#2a00ff',
+                        'off-white': '#f5f5f5',
+                        'black': '#000000',
+                    },
+                    fontFamily: {
+                        'sans': ['Space Grotesk', 'sans-serif'],
+                        'display': ['Archivo Black', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        'neo': '6px 6px 0px 0px #000000',
+                        'neo-hover': '2px 2px 0px 0px #000000',
+                        'neo-lg': '10px 10px 0px 0px #000000',
+                    },
+                    backgroundImage: {
+                        'noise': "url('noise_texture.png')",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f5f5f5;
+            color: #000;
+            overflow-x: hidden;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f5f5f5;
+            border-left: 3px solid #000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ccff00;
+            border: 3px solid #000;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff00ff;
+        }
+
+        /* Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .text-stroke {
+            -webkit-text-stroke: 2px black;
+            color: transparent;
+        }
+        
+        .text-stroke-white {
+            -webkit-text-stroke: 2px white;
+            color: transparent;
+        }
+
+        .hover-glitch:hover {
+            animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-hot-pink selection:text-white">
+
+    <!-- Fixed Nav -->
+    <nav class="fixed top-0 left-0 w-full bg-off-white border-b-4 border-black z-40 px-4 py-3 md:px-8 flex justify-between items-center">
+        <a href="#" class="font-display text-2xl md:text-3xl tracking-tighter hover:text-electric-blue transition-colors">ALEX.EDIT</a>
+        <div class="hidden md:flex gap-8 font-mono font-bold text-lg">
+            <a href="#work" class="hover:bg-acid-green px-2 transition-colors">WORK</a>
+            <a href="#about" class="hover:bg-hot-pink px-2 transition-colors">ABOUT</a>
+            <a href="#contact" class="hover:bg-electric-blue hover:text-white px-2 transition-colors">CONTACT</a>
+        </div>
+        <button class="md:hidden font-mono font-bold border-2 border-black px-3 py-1 shadow-neo active:shadow-neo-hover active:translate-x-[4px] active:translate-y-[4px] transition-all bg-acid-green">
+            MENU
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="min-h-screen flex flex-col justify-center items-center pt-20 relative overflow-hidden border-b-4 border-black">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-acid-green rounded-full blur-[120px] opacity-20 pointer-events-none"></div>
+        
+        <div class="container mx-auto px-4 relative z-10 text-center">
+            <div class="reveal">
+                <p class="font-mono text-lg md:text-xl mb-4 bg-black text-white inline-block px-4 py-1 -rotate-2">FREELANCE VIDEO EDITOR</p>
+            </div>
+            <h1 class="font-display text-6xl md:text-8xl lg:text-9xl leading-[0.9] tracking-tighter mb-8 reveal" style="transition-delay: 100ms;">
+                VISUAL<br>
+                <span class="text-stroke text-off-white hover:text-electric-blue transition-colors duration-300 cursor-default">STORY</span><br>
+                TELLER
+            </h1>
+            <div class="reveal" style="transition-delay: 200ms;">
+                <a href="#work" class="inline-block font-mono font-bold text-xl bg-hot-pink border-4 border-black px-8 py-4 shadow-neo hover:shadow-neo-hover hover:translate-x-[4px] hover:translate-y-[4px] transition-all">
+                    VIEW SELECTED WORKS
+                </a>
+            </div>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="absolute bottom-8 left-8 hidden md:block font-mono text-sm animate-bounce">
+            SCROLL_DOWN ↓
+        </div>
+        <div class="absolute top-32 right-8 w-24 h-24 border-4 border-black bg-electric-blue rotate-12 hidden md:block shadow-neo"></div>
+    </header>
+
+    <!-- Selected Works -->
+    <section id="work" class="py-20 border-b-4 border-black bg-off-white relative">
+        <div class="container mx-auto px-4">
+            <div class="flex items-end gap-4 mb-16 reveal">
+                <h2 class="font-display text-5xl md:text-7xl">SELECTED_WORKS</h2>
+                <div class="h-4 md:h-6 flex-grow bg-black mb-2 md:mb-3"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                <!-- Project 1 -->
+                <article class="project-card group cursor-pointer reveal" data-video-id="1">
+                    <div class="border-4 border-black bg-white p-2 shadow-neo group-hover:shadow-neo-hover group-hover:translate-x-[4px] group-hover:translate-y-[4px] transition-all duration-300">
+                        <div class="border-2 border-black aspect-video bg-gray-200 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-electric-blue opacity-0 group-hover:opacity-20 transition-opacity z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Project 1" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-110">
+                            <div class="absolute top-0 left-0 bg-black text-white font-mono text-xs px-2 py-1 z-20">MUSIC VIDEO</div>
+                        </div>
+                        <div class="mt-4 flex justify-between items-start px-2 pb-2">
+                            <div>
+                                <h3 class="font-display text-2xl uppercase">Neon Nights</h3>
+                                <p class="font-mono text-sm text-gray-600">Editing, Color Grading</p>
+                            </div>
+                            <div class="w-10 h-10 bg-acid-green border-2 border-black flex items-center justify-center rounded-full group-hover:rotate-45 transition-transform">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="project-card group cursor-pointer reveal md:mt-20" data-video-id="2">
+                    <div class="border-4 border-black bg-white p-2 shadow-neo group-hover:shadow-neo-hover group-hover:translate-x-[4px] group-hover:translate-y-[4px] transition-all duration-300">
+                        <div class="border-2 border-black aspect-video bg-gray-200 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-hot-pink opacity-0 group-hover:opacity-20 transition-opacity z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Project 2" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-110">
+                            <div class="absolute top-0 left-0 bg-black text-white font-mono text-xs px-2 py-1 z-20">COMMERCIAL</div>
+                        </div>
+                        <div class="mt-4 flex justify-between items-start px-2 pb-2">
+                            <div>
+                                <h3 class="font-display text-2xl uppercase">Nike Air</h3>
+                                <p class="font-mono text-sm text-gray-600">VFX, Sound Design</p>
+                            </div>
+                            <div class="w-10 h-10 bg-hot-pink border-2 border-black flex items-center justify-center rounded-full group-hover:rotate-45 transition-transform">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 3 -->
+                <article class="project-card group cursor-pointer reveal" data-video-id="3">
+                    <div class="border-4 border-black bg-white p-2 shadow-neo group-hover:shadow-neo-hover group-hover:translate-x-[4px] group-hover:translate-y-[4px] transition-all duration-300">
+                        <div class="border-2 border-black aspect-video bg-gray-200 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-acid-green opacity-0 group-hover:opacity-20 transition-opacity z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1574717432722-a0f9878ce722?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Project 3" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-110">
+                            <div class="absolute top-0 left-0 bg-black text-white font-mono text-xs px-2 py-1 z-20">DOCUMENTARY</div>
+                        </div>
+                        <div class="mt-4 flex justify-between items-start px-2 pb-2">
+                            <div>
+                                <h3 class="font-display text-2xl uppercase">Urban Decay</h3>
+                                <p class="font-mono text-sm text-gray-600">Direction, Editing</p>
+                            </div>
+                            <div class="w-10 h-10 bg-electric-blue border-2 border-black flex items-center justify-center rounded-full group-hover:rotate-45 transition-transform">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 4 -->
+                <article class="project-card group cursor-pointer reveal md:mt-20" data-video-id="4">
+                    <div class="border-4 border-black bg-white p-2 shadow-neo group-hover:shadow-neo-hover group-hover:translate-x-[4px] group-hover:translate-y-[4px] transition-all duration-300">
+                        <div class="border-2 border-black aspect-video bg-gray-200 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1601506521937-244b01c84346?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Project 4" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-110">
+                            <div class="absolute top-0 left-0 bg-black text-white font-mono text-xs px-2 py-1 z-20">FASHION</div>
+                        </div>
+                        <div class="mt-4 flex justify-between items-start px-2 pb-2">
+                            <div>
+                                <h3 class="font-display text-2xl uppercase">Vogue X</h3>
+                                <p class="font-mono text-sm text-gray-600">Color, Motion Graphics</p>
+                            </div>
+                            <div class="w-10 h-10 bg-white border-2 border-black flex items-center justify-center rounded-full group-hover:rotate-45 transition-transform">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="border-b-4 border-black bg-acid-green">
+        <div class="grid grid-cols-1 md:grid-cols-2">
+            <div class="border-b-4 md:border-b-0 md:border-r-4 border-black p-8 md:p-20 flex flex-col justify-center relative overflow-hidden">
+                <!-- Abstract graphic placeholder -->
+                <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-black to-transparent"></div>
+                <img src="video_editor_hero_graphic.png" alt="Abstract Graphic" class="relative z-10 border-4 border-black shadow-neo rotate-2 hover:-rotate-2 transition-transform duration-500">
+            </div>
+            <div class="p-8 md:p-20 flex flex-col justify-center bg-off-white">
+                <div class="reveal">
+                    <h2 class="font-display text-5xl mb-8">WHO_AM_I?</h2>
+                    <p class="font-sans text-xl md:text-2xl leading-relaxed mb-8 font-medium">
+                        I'm Alex, a video editor obsessed with rhythm and impact. I don't just cut footage; I craft narratives that <span class="bg-hot-pink px-1 border border-black">punch through the noise</span>.
+                    </p>
+                    <p class="font-mono text-sm md:text-base mb-8 border-l-4 border-electric-blue pl-4">
+                        Adobe Premiere Pro / After Effects / DaVinci Resolve / Cinema 4D
+                    </p>
+                    <div class="flex gap-4">
+                        <div class="bg-black text-white font-mono px-3 py-1 text-sm">5+ YEARS EXP</div>
+                        <div class="bg-black text-white font-mono px-3 py-1 text-sm">AVAILABLE</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 md:py-32 bg-black text-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-[url('noise_texture.png')] opacity-20"></div>
+        <div class="container mx-auto px-4 relative z-10 text-center">
+            <div class="reveal">
+                <p class="font-mono text-acid-green mb-4">READY TO COLLABORATE?</p>
+                <h2 class="font-display text-5xl md:text-8xl mb-12">
+                    LET'S MAKE<br>SOMETHING<br><span class="text-stroke-white hover:text-hot-pink transition-colors duration-300">LOUD</span>
+                </h2>
+                <a href="mailto:hello@alex.edit" class="inline-block font-display text-2xl md:text-4xl bg-electric-blue text-white border-4 border-white px-8 py-4 shadow-[8px_8px_0px_0px_#ffffff] hover:shadow-none hover:translate-x-[8px] hover:translate-y-[8px] transition-all">
+                    HELLO@ALEX.EDIT
+                </a>
+                
+                <div class="mt-20 flex justify-center gap-8 font-mono text-lg">
+                    <a href="#" class="hover:text-acid-green hover:underline decoration-4 underline-offset-4">INSTAGRAM</a>
+                    <a href="#" class="hover:text-hot-pink hover:underline decoration-4 underline-offset-4">VIMEO</a>
+                    <a href="#" class="hover:text-electric-blue hover:underline decoration-4 underline-offset-4">LINKEDIN</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-off-white border-t-4 border-black py-6">
+        <div class="container mx-auto px-4 flex justify-between items-center font-mono text-xs md:text-sm">
+            <div>© 2024 ALEX.EDIT</div>
+            <div>DESIGNED_IN_CALIFORNIA</div>
+        </div>
+    </footer>
+
+    <!-- Video Modal -->
+    <div id="video-modal" class="fixed inset-0 z-50 hidden justify-center items-center p-4 bg-black/80 backdrop-blur-sm">
+        <div id="modal-content" class="bg-off-white border-4 border-black p-2 shadow-neo-lg w-full max-w-4xl transform scale-95 opacity-0 transition-all duration-300 relative">
+            <button id="close-modal" class="absolute -top-6 -right-6 bg-hot-pink border-4 border-black w-12 h-12 flex items-center justify-center font-bold text-xl shadow-neo hover:shadow-neo-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all z-50">
+                X
+            </button>
+            <div class="aspect-video bg-black w-full relative">
+                <!-- Placeholder for video content -->
+                <div class="absolute inset-0 flex items-center justify-center text-white font-mono">
+                    <div class="text-center">
+                        <p class="text-2xl mb-4">VIDEO PREVIEW</p>
+                        <p class="text-sm text-gray-400">[ IFRAME / VIDEO TAG WOULD GO HERE ]</p>
+                    </div>
+                </div>
+                <iframe id="video-frame" class="w-full h-full absolute inset-0" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="mt-4 flex justify-between items-center px-2">
+                <h3 class="font-display text-xl">PROJECT TITLE</h3>
+                <a href="#" class="font-mono font-bold hover:bg-acid-green px-2 border-2 border-transparent hover:border-black transition-all">VIEW FULL PROJECT -></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

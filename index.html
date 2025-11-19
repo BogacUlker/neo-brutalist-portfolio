@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VEX // VIDEO EDITOR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body class="bg-[#f5f5f5] text-black overflow-x-hidden selection:bg-[#ccff00] selection:text-black">
+
+  <!-- Noise Overlay -->
+  <div class="fixed inset-0 pointer-events-none z-50 opacity-[0.03] mix-blend-overlay"
+    style="background-image: url('https://grainy-gradients.vercel.app/noise.svg');"></div>
+
+  <!-- Fixed Nav -->
+  <nav
+    class="fixed top-0 left-0 w-full z-40 px-4 py-4 md:px-8 md:py-6 flex justify-between items-center mix-blend-difference text-[#f5f5f5]">
+    <a href="#"
+      class="font-['Archivo_Black'] text-xl md:text-2xl tracking-tighter hover:text-[#ccff00] transition-colors">VEX</a>
+
+    <div class="hidden md:flex gap-8 font-['JetBrains_Mono'] text-sm font-bold">
+      <a href="#work"
+        class="hover:text-[#ccff00] hover:underline decoration-2 underline-offset-4 transition-all">WORK</a>
+      <a href="#about"
+        class="hover:text-[#ff00ff] hover:underline decoration-2 underline-offset-4 transition-all">ABOUT</a>
+      <a href="#contact"
+        class="hover:text-[#2a00ff] hover:underline decoration-2 underline-offset-4 transition-all">CONTACT</a>
+    </div>
+
+    <button id="menu-btn" class="md:hidden font-['JetBrains_Mono'] font-bold text-sm hover:text-[#ccff00]">MENU</button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu"
+    class="fixed inset-0 bg-black z-30 transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center gap-8">
+    <a href="#work" class="font-['Archivo_Black'] text-4xl text-[#f5f5f5] hover:text-[#ccff00] mobile-link">WORK</a>
+    <a href="#about" class="font-['Archivo_Black'] text-4xl text-[#f5f5f5] hover:text-[#ff00ff] mobile-link">ABOUT</a>
+    <a href="#contact"
+      class="font-['Archivo_Black'] text-4xl text-[#f5f5f5] hover:text-[#2a00ff] mobile-link">CONTACT</a>
+  </div>
+
+  <!-- Hero Section -->
+  <header id="hero"
+    class="relative min-h-screen w-full overflow-hidden bg-[#f5f5f5] flex items-center hero-perspective px-4 md:px-8 pt-20">
+    <!-- 3D Grid Floor -->
+    <div class="hero-grid pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
+
+      <!-- Left Column: Text -->
+      <div class="flex flex-col items-start text-left">
+        <div
+          class="inline-block bg-[#ccff00] border-2 border-black px-3 py-1 font-['JetBrains_Mono'] font-bold text-sm mb-6 shadow-[4px_4px_0px_#000] -rotate-1">
+          AVAILABLE FOR HIRE
+        </div>
+
+        <h1
+          class="font-['Archivo_Black'] text-6xl md:text-8xl lg:text-9xl leading-[0.9] tracking-tighter text-black mb-6 text-3d-block">
+          VISUAL<br>EDITOR
+        </h1>
+
+        <p class="font-['Space_Grotesk'] text-lg md:text-xl text-gray-600 max-w-md mb-8 font-medium leading-relaxed">
+          Experience the chaos of next-gen editing. Real-time rendering, zero-latency cuts, and pure brutalist
+          aesthetic.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#contact"
+            class="bg-black text-white font-['JetBrains_Mono'] px-8 py-4 font-bold text-lg border-2 border-black shadow-[6px_6px_0px_#ccff00] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all hover:bg-[#ccff00] hover:text-black text-center">
+            START PROJECT
+          </a>
+          <a href="#work"
+            class="bg-white text-black font-['JetBrains_Mono'] px-8 py-4 font-bold text-lg border-2 border-black shadow-[6px_6px_0px_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all hover:bg-gray-100 text-center">
+            VIEW WORK
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: 3D Object -->
+      <div class="flex justify-center items-center relative h-[400px] md:h-[600px]">
+        <div class="scene">
+          <!-- Pyramid Object -->
+          <div id="pyramid" class="pyramid">
+            <div class="side"></div>
+            <div class="side"></div>
+            <div class="side"></div>
+            <div class="side"></div>
+          </div>
+
+          <!-- Floating Status Card -->
+          <div id="floating-card" class="floating-card">
+            <div class="flex justify-between items-center mb-4">
+              <span class="font-['JetBrains_Mono'] text-xs font-bold text-gray-500">CURRENT STATUS</span>
+              <span class="bg-[#ccff00] text-black text-xs font-bold px-2 py-1 border border-black">+2.1%</span>
+            </div>
+            <div class="font-['Archivo_Black'] text-4xl mb-4">8.4k</div>
+            <div class="w-full bg-gray-200 h-2 border border-black mb-4">
+              <div class="bg-[#2a00ff] h-full w-[70%]"></div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 bg-black rounded-full flex items-center justify-center text-white">↓</div>
+              <div>
+                <div class="font-['JetBrains_Mono'] text-xs font-bold">PROJECTS</div>
+                <div class="font-['Space_Grotesk'] text-xs text-gray-500">Just now</div>
+              </div>
+              <div class="ml-auto font-['JetBrains_Mono'] font-bold text-[#2a00ff]">+420.00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Vignette for depth -->
+    <div
+      class="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,rgba(245,245,245,1)_90%)]">
+    </div>
+  </header>
+
+  <!-- Selected Works -->
+  <section id="work" class="py-20 px-4 md:px-8 bg-[#f5f5f5]">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex justify-between items-end mb-16 border-b-4 border-black pb-4">
+        <h2 class="font-['Archivo_Black'] text-5xl md:text-7xl text-black">SELECTED<br><span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-[#2a00ff] to-[#ff00ff]">WORKS</span></h2>
+        <span class="font-['JetBrains_Mono'] font-bold text-xl hidden md:block">01 // PROJECTS</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+        <!-- Project 1 -->
+        <article class="group relative reveal-on-scroll">
+          <div
+            class="absolute inset-0 bg-black translate-x-2 translate-y-2 md:translate-x-4 md:translate-y-4 group-hover:translate-x-1 group-hover:translate-y-1 transition-transform duration-300">
+          </div>
+          <div
+            class="relative border-4 border-black bg-white p-2 md:p-4 h-full flex flex-col cursor-pointer group-hover:-translate-y-1 group-hover:-translate-x-1 transition-transform duration-300">
+            <div class="aspect-video bg-gray-200 border-2 border-black mb-4 overflow-hidden relative">
+              <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"
+                alt="Project 1"
+                class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+              <div
+                class="absolute inset-0 bg-[#ccff00] mix-blend-multiply opacity-0 group-hover:opacity-50 transition-opacity duration-300">
+              </div>
+              <div
+                class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="bg-black text-white font-['JetBrains_Mono'] px-4 py-2 font-bold">PLAY REEL</span>
+              </div>
+            </div>
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="font-['Archivo_Black'] text-2xl md:text-3xl uppercase mb-1">Neon Dreams</h3>
+                <p class="font-['Space_Grotesk'] text-sm font-bold text-gray-600">MUSIC VIDEO // EDITING + COLOR</p>
+              </div>
+              <span class="font-['JetBrains_Mono'] font-bold text-xl text-[#2a00ff]">01</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="group relative reveal-on-scroll md:mt-24">
+          <div
+            class="absolute inset-0 bg-[#ff00ff] translate-x-2 translate-y-2 md:translate-x-4 md:translate-y-4 group-hover:translate-x-1 group-hover:translate-y-1 transition-transform duration-300">
+          </div>
+          <div
+            class="relative border-4 border-black bg-white p-2 md:p-4 h-full flex flex-col cursor-pointer group-hover:-translate-y-1 group-hover:-translate-x-1 transition-transform duration-300">
+            <div class="aspect-video bg-gray-200 border-2 border-black mb-4 overflow-hidden relative">
+              <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2670&auto=format&fit=crop"
+                alt="Project 2"
+                class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+              <div
+                class="absolute inset-0 bg-[#ff00ff] mix-blend-multiply opacity-0 group-hover:opacity-50 transition-opacity duration-300">
+              </div>
+              <div
+                class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="bg-black text-white font-['JetBrains_Mono'] px-4 py-2 font-bold">PLAY REEL</span>
+              </div>
+            </div>
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="font-['Archivo_Black'] text-2xl md:text-3xl uppercase mb-1">Urban Decay</h3>
+                <p class="font-['Space_Grotesk'] text-sm font-bold text-gray-600">DOCUMENTARY // EDITING</p>
+              </div>
+              <span class="font-['JetBrains_Mono'] font-bold text-xl text-[#ff00ff]">02</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="group relative reveal-on-scroll">
+          <div
+            class="absolute inset-0 bg-[#2a00ff] translate-x-2 translate-y-2 md:translate-x-4 md:translate-y-4 group-hover:translate-x-1 group-hover:translate-y-1 transition-transform duration-300">
+          </div>
+          <div
+            class="relative border-4 border-black bg-white p-2 md:p-4 h-full flex flex-col cursor-pointer group-hover:-translate-y-1 group-hover:-translate-x-1 transition-transform duration-300">
+            <div class="aspect-video bg-gray-200 border-2 border-black mb-4 overflow-hidden relative">
+              <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=2600&auto=format&fit=crop"
+                alt="Project 3"
+                class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+              <div
+                class="absolute inset-0 bg-[#2a00ff] mix-blend-multiply opacity-0 group-hover:opacity-50 transition-opacity duration-300">
+              </div>
+              <div
+                class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="bg-black text-white font-['JetBrains_Mono'] px-4 py-2 font-bold">PLAY REEL</span>
+              </div>
+            </div>
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="font-['Archivo_Black'] text-2xl md:text-3xl uppercase mb-1">Glitch Mode</h3>
+                <p class="font-['Space_Grotesk'] text-sm font-bold text-gray-600">COMMERCIAL // VFX</p>
+              </div>
+              <span class="font-['JetBrains_Mono'] font-bold text-xl text-[#ccff00]">03</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 4 -->
+        <article class="group relative reveal-on-scroll md:mt-24">
+          <div
+            class="absolute inset-0 bg-[#ccff00] translate-x-2 translate-y-2 md:translate-x-4 md:translate-y-4 group-hover:translate-x-1 group-hover:translate-y-1 transition-transform duration-300">
+          </div>
+          <div
+            class="relative border-4 border-black bg-white p-2 md:p-4 h-full flex flex-col cursor-pointer group-hover:-translate-y-1 group-hover:-translate-x-1 transition-transform duration-300">
+            <div class="aspect-video bg-gray-200 border-2 border-black mb-4 overflow-hidden relative">
+              <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2670&auto=format&fit=crop"
+                alt="Project 4"
+                class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+              <div
+                class="absolute inset-0 bg-[#ccff00] mix-blend-multiply opacity-0 group-hover:opacity-50 transition-opacity duration-300">
+              </div>
+              <div
+                class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="bg-black text-white font-['JetBrains_Mono'] px-4 py-2 font-bold">PLAY REEL</span>
+              </div>
+            </div>
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="font-['Archivo_Black'] text-2xl md:text-3xl uppercase mb-1">Retro Future</h3>
+                <p class="font-['Space_Grotesk'] text-sm font-bold text-gray-600">BRAND FILM // DIRECTION</p>
+              </div>
+              <span class="font-['JetBrains_Mono'] font-bold text-xl text-black">04</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-20 bg-black text-[#f5f5f5] border-y-4 border-[#f5f5f5]">
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      <div class="flex flex-col md:flex-row gap-12 md:gap-24">
+        <div class="w-full md:w-1/2 reveal-on-scroll">
+          <div class="relative">
+            <div class="absolute inset-0 bg-[#ccff00] translate-x-4 translate-y-4"></div>
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1780&auto=format&fit=crop"
+              alt="Portrait"
+              class="relative w-full aspect-[3/4] object-cover border-4 border-[#f5f5f5] grayscale hover:grayscale-0 transition-all duration-500">
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 flex flex-col justify-center reveal-on-scroll">
+          <span class="font-['JetBrains_Mono'] text-[#ccff00] font-bold text-xl mb-4">02 // WHO AM I?</span>
+          <h2 class="font-['Archivo_Black'] text-5xl md:text-7xl mb-8 leading-none">CUTTING<br>THROUGH<br>NOISE</h2>
+          <p class="font-['Space_Grotesk'] text-lg md:text-xl leading-relaxed mb-8 text-gray-300">
+            I'm a video editor based in nowhere. I specialize in high-energy, rhythm-driven edits that demand attention.
+            No fluff, just impact. I turn raw footage into visual weapons.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <span
+              class="border-2 border-[#f5f5f5] px-4 py-2 font-['JetBrains_Mono'] font-bold hover:bg-[#f5f5f5] hover:text-black transition-colors cursor-default">PREMIERE
+              PRO</span>
+            <span
+              class="border-2 border-[#f5f5f5] px-4 py-2 font-['JetBrains_Mono'] font-bold hover:bg-[#f5f5f5] hover:text-black transition-colors cursor-default">AFTER
+              EFFECTS</span>
+            <span
+              class="border-2 border-[#f5f5f5] px-4 py-2 font-['JetBrains_Mono'] font-bold hover:bg-[#f5f5f5] hover:text-black transition-colors cursor-default">DAVINCI
+              RESOLVE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 px-4 md:px-8 bg-[#ccff00]">
+    <div class="max-w-7xl mx-auto text-center">
+      <h2 class="font-['Archivo_Black'] text-6xl md:text-[10vw] leading-none mb-12 text-black reveal-on-scroll">
+        LET'S MAKE<br>SOMETHING<br>LOUD
+      </h2>
+
+      <div class="flex flex-col md:flex-row justify-center gap-8 mb-16 reveal-on-scroll">
+        <a href="mailto:hello@vex.com"
+          class="bg-black text-white font-['JetBrains_Mono'] text-xl md:text-2xl px-8 py-4 font-bold border-4 border-transparent hover:bg-white hover:text-black hover:border-black shadow-[8px_8px_0px_#000] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+          HELLO@VEX.COM
+        </a>
+      </div>
+
+      <div class="flex justify-center gap-8 font-['Space_Grotesk'] font-bold text-xl">
+        <a href="#" class="hover:underline decoration-4 underline-offset-4">INSTAGRAM</a>
+        <a href="#" class="hover:underline decoration-4 underline-offset-4">TWITTER</a>
+        <a href="#" class="hover:underline decoration-4 underline-offset-4">VIMEO</a>
+      </div>
+
+      <footer
+        class="mt-20 pt-8 border-t-4 border-black flex flex-col md:flex-row justify-between items-center font-['JetBrains_Mono'] text-sm font-bold">
+        <p>&copy; 2025 VEX EDITING</p>
+        <p>DESIGNED TO DISTURB</p>
+      </footer>
+    </div>
+  </section>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
