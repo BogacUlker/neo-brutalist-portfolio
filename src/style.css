@@ -75,8 +75,7 @@
 
 /* 3D Cube Styles */
 .scene {
-    width: 300px;
-    height: 300px;
+    /* width/height handled by Tailwind w-full h-full */
     perspective: 1000px;
     position: relative;
     /* Changed from absolute for grid layout */
@@ -123,13 +122,192 @@
     transform: translate(-2px, -2px);
 }
 
-/* Pyramid Object */
-.pyramid {
+/* Hyper-Industrial Mechanism */
+.mechanism {
     width: 100%;
     height: 100%;
     position: relative;
     transform-style: preserve-3d;
-    animation: tumble 15s linear infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Core Rings */
+.mech-ring {
+    position: absolute;
+    border-radius: 50%;
+    transform-style: preserve-3d;
+    box-sizing: border-box;
+}
+
+/* Ring 1: Outer Heavy Gear */
+.ring-1 {
+    width: 320px;
+    height: 320px;
+    border: 12px dashed #000;
+    animation: spin-cw 20s linear infinite;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Ring 2: Acid Accent */
+.ring-2 {
+    width: 280px;
+    height: 280px;
+    border: 2px solid #ccff00;
+    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
+    animation: spin-ccw 15s linear infinite;
+    box-shadow: 0 0 15px rgba(204, 255, 0, 0.3);
+}
+
+/* Ring 3: Inner Detail */
+.ring-3 {
+    width: 220px;
+    height: 220px;
+    border: 1px solid #000;
+    background: rgba(0, 0, 0, 0.02);
+    animation: spin-cw 10s linear infinite;
+}
+
+.ring-3::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background: #000;
+    transform: translateX(-50%);
+}
+
+/* Lens Glass */
+.lens-glass {
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1) 0%, rgba(204, 255, 0, 0.05) 50%, rgba(0, 0, 0, 0.1) 100%);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transform: translateZ(40px);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Crosshair */
+.crosshair {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccff00;
+    transform: translateZ(60px);
+}
+
+.crosshair::before,
+.crosshair::after {
+    content: '';
+    position: absolute;
+    background: #ccff00;
+}
+
+.crosshair::before {
+    top: 50%;
+    left: -10px;
+    right: -10px;
+    height: 1px;
+}
+
+.crosshair::after {
+    left: 50%;
+    top: -10px;
+    bottom: -10px;
+    width: 1px;
+}
+
+/* Data Tags */
+.data-tag {
+    position: absolute;
+    background: #000;
+    color: #ccff00;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 2px 6px;
+    font-weight: bold;
+    transform-style: preserve-3d;
+}
+
+.tag-1 {
+    top: 50%;
+    right: -180px;
+    transform: translateY(-50%) translateZ(20px);
+    border-left: 2px solid #ccff00;
+}
+
+.tag-2 {
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateZ(30px);
+    background: #ccff00;
+    color: #000;
+    border: 1px solid #000;
+}
+
+.tag-3 {
+    top: 0;
+    left: 0;
+    transform: translate(-40px, -40px) rotate(-45deg);
+    background: transparent;
+    color: #000;
+    border: 1px solid #000;
+}
+
+/* Animations */
+@keyframes spin-cw {
+    from {
+        transform: rotateZ(0deg);
+    }
+
+    to {
+        transform: rotateZ(360deg);
+    }
+}
+
+@keyframes spin-ccw {
+    from {
+        transform: rotateZ(360deg);
+    }
+
+    to {
+        transform: rotateZ(0deg);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .ring-1 {
+        width: 220px;
+        height: 220px;
+        border-width: 8px;
+    }
+
+    .ring-2 {
+        width: 190px;
+        height: 190px;
+    }
+
+    .ring-3 {
+        width: 150px;
+        height: 150px;
+    }
+
+    .lens-glass {
+        width: 100px;
+        height: 100px;
+    }
+
+    .tag-1 {
+        right: -120px;
+    }
 }
 
 .side {

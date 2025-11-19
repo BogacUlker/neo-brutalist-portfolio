@@ -1,5 +1,28 @@
 import './style.css'
 
+// Mechanism Parallax
+const hero = document.getElementById('hero');
+const mechanism = document.querySelector('.mechanism');
+
+if (hero && mechanism) {
+    hero.addEventListener('mousemove', (e) => {
+        const { offsetWidth: width, offsetHeight: height } = hero;
+        const { clientX: x, clientY: y } = e;
+
+        const xPos = (x / width - 0.5);
+        const yPos = (y / height - 0.5);
+
+        mechanism.style.transform = `
+      rotateY(${xPos * 30}deg)
+      rotateX(${-yPos * 30}deg)
+    `;
+    });
+
+    hero.addEventListener('mouseleave', () => {
+        mechanism.style.transform = `rotateY(0deg) rotateX(0deg)`;
+    });
+}
+
 // Scroll Reveal
 const observerOptions = {
     root: null,
@@ -49,48 +72,5 @@ if (menuBtn && mobileMenu) {
             menuBtn.textContent = 'MENU';
             document.body.style.overflow = '';
         });
-    });
-}
-
-// 3D Cube & Card Interaction
-const hero = document.getElementById('hero');
-const pyramid = document.getElementById('pyramid');
-const floatingCard = document.getElementById('floating-card');
-
-if (hero && pyramid) {
-    hero.addEventListener('mousemove', (e) => {
-        const { offsetWidth: width, offsetHeight: height } = hero;
-        const { clientX: x, clientY: y } = e;
-
-        const xPos = (x / width - 0.5);
-        const yPos = (y / height - 0.5);
-
-        // Rotate the scene
-        const scene = document.querySelector('.scene');
-        if (scene) {
-            scene.style.transform = `
-        rotateY(${xPos * 40}deg)
-        rotateX(${-yPos * 40}deg)
-      `;
-        }
-
-        // Parallax the floating card (moves opposite to mouse for depth)
-        if (floatingCard) {
-            floatingCard.style.transform = `
-        rotate(-2deg)
-        translateX(${xPos * -30}px)
-        translateY(${yPos * -30}px)
-      `;
-        }
-    });
-
-    hero.addEventListener('mouseleave', () => {
-        const scene = document.querySelector('.scene');
-        if (scene) {
-            scene.style.transform = `rotateY(0deg) rotateX(0deg)`;
-        }
-        if (floatingCard) {
-            floatingCard.style.transform = `rotate(-2deg) translateX(0) translateY(0)`;
-        }
     });
 }
